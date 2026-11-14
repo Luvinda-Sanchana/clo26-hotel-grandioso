@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+namespace HotelGrandioso.Models;
 
-namespace HotelGrandioso.Models
+public class Guest
 {
-    internal class Guest
-    {
-    }
+    
+    public int GuestId { get; set; }
+
+    public string Name { get; set; } = string.Empty;
+
+    public string TelephoneNumber { get; set; } = string.Empty;
+
 }
