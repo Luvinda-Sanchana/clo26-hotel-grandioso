@@ -1,4 +1,5 @@
 ﻿
+using HotelGrandioso.Models;
 using HotelGrandioso.Services;
 
 namespace HotelGrandioso.UI;
@@ -35,7 +36,7 @@ public class Menu
                     break;
 
                 case "2":
-                    Console.WriteLine("Avbokningsfunktionen kommer snart.");
+                    CancelBooking();
                     break;
 
                 case "3":
@@ -102,6 +103,56 @@ public class Menu
                 $"Pris per natt: {room.PricePerNight:N0} kr");
         }
     }
+
+    private void CancelBooking()
+    {
+        Console.WriteLine("\n=== AVBOKA BOKNING ===");
+
+        Console.Write("Ange bokningsnummer: ");
+
+        if (!int.TryParse(Console.ReadLine(), out int bookingId))
+        {
+            Console.WriteLine("Ogiltigt bokningsnummer.");
+            return;
+        }
+
+        Console.Write("Ange gästens namn: ");
+        string? guestName = Console.ReadLine();
+
+        if (string.IsNullOrWhiteSpace(guestName))
+        {
+            Console.WriteLine("Gästens namn kan inte vara tomt.");
+            return;
+        }
+
+        var booking = _repository.GetBookingById(bookingId);
+
+        if (booking == null ||
+            !booking.Guest.Name.Equals(guestName.Trim(), StringComparison.OrdinalIgnoreCase))
+        {
+            Console.WriteLine("Ingen bokning hittades med dessa uppgifter.");
+            return;
+        }
+
+        Console.WriteLine("\n=== BOKNING HITTAD ===");
+        Console.WriteLine($"Bokningsnummer: {booking.BookingId}");
+        Console.WriteLine($"Gäst: {booking.Guest.Name}");
+
+        Console.Write("\nVill du avboka bokningen? (J/N): ");
+        string? confirmation = Console.ReadLine();
+
+        if (confirmation?.ToUpper() != "J")
+        {
+            Console.WriteLine("Avbokningen avbröts.");
+            return;
+        }
+
+        _repository.DeleteBooking(booking);
+
+        Console.WriteLine("Bokningen har avbokats!");
+    }
+
+
 
     private void BookRoom()
     {
@@ -236,6 +287,30 @@ public class Menu
             return;
         }
 
-        Console.WriteLine("Bokningen har bekräftats!");
+        // Skapa en ny gäst
+        var guest = new Guest
+        {
+            Name = name,
+            TelephoneNumber = telephoneNumber
+        };
+
+        // Spara gästen i databasen
+        _repository.AddGuest(guest);
+
+        // Skapa en ny bokning
+        var booking = new Booking
+        {
+            GuestId = guest.GuestId,
+            RoomId = selectedRoom.RoomId,
+            CheckIn = checkIn,
+            CheckOut = checkOut,
+            NumberOfGuests = numberOfGuests
+        };
+
+        // Spara bokningen i databasen
+        _repository.AddBooking(booking);
+
+        Console.WriteLine("\nBokningen har sparats!");
+        Console.WriteLine($"Bokningsnummer: {booking.BookingId}");
     }
 }
