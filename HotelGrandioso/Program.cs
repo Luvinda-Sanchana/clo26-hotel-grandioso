@@ -1,9 +1,37 @@
-// Startpunkt för Hotel Grandioso.
-// Här kopplar du ihop databasen och menyn.
 
-// TODO: Skapa databasen med EF Core (se Data/README.md)
+using HotelGrandioso.Data;
+using HotelGrandioso.Services;
+using HotelGrandioso.UI;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-// TODO: Starta menyn (Boka rum, Avboka, Visa bokningar, Visa lediga rum, Avsluta)
+// Set the working directory to the project folder
+Directory.SetCurrentDirectory(
+    Path.GetFullPath(
+        Path.Combine(AppContext.BaseDirectory, "..", "..", "..")));
 
-Console.WriteLine("=== Hotel Grandioso ===");
-Console.WriteLine("Projektet startar här. Ta bort den här raden när du börjat bygga.");
+// Read database configuration
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(AppContext.BaseDirectory)
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+// Get connection string
+var connectionString = configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException(
+        "Connection string 'DefaultConnection' saknas.");
+
+// Configure database
+var options = new DbContextOptionsBuilder<HotelContext>()
+    .UseSqlite(connectionString)
+    .Options;
+
+// Create database context
+using var context = new HotelContext(options);
+
+// Create repository
+IHotelRepository repository = new HotelRepository(context);
+
+// Start menu
+var menu = new Menu(repository);
+menu.Show();

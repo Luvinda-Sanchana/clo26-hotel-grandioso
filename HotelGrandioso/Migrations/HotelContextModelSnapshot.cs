@@ -92,6 +92,143 @@ namespace HotelGrandioso.Migrations
                     b.HasIndex("RoomTypeId");
 
                     b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            RoomId = 1,
+                            Floor = 1,
+                            PricePerNight = 800m,
+                            RoomNumber = 101,
+                            RoomTypeId = 1,
+                            SizeM2 = 80.0
+                        },
+                        new
+                        {
+                            RoomId = 2,
+                            Floor = 1,
+                            PricePerNight = 800m,
+                            RoomNumber = 102,
+                            RoomTypeId = 1,
+                            SizeM2 = 80.0
+                        },
+                        new
+                        {
+                            RoomId = 3,
+                            Floor = 1,
+                            PricePerNight = 800m,
+                            RoomNumber = 103,
+                            RoomTypeId = 1,
+                            SizeM2 = 80.0
+                        },
+                        new
+                        {
+                            RoomId = 4,
+                            Floor = 1,
+                            PricePerNight = 800m,
+                            RoomNumber = 104,
+                            RoomTypeId = 1,
+                            SizeM2 = 80.0
+                        },
+                        new
+                        {
+                            RoomId = 5,
+                            Floor = 1,
+                            PricePerNight = 800m,
+                            RoomNumber = 105,
+                            RoomTypeId = 1,
+                            SizeM2 = 80.0
+                        },
+                        new
+                        {
+                            RoomId = 6,
+                            Floor = 2,
+                            PricePerNight = 1000m,
+                            RoomNumber = 201,
+                            RoomTypeId = 1,
+                            SizeM2 = 100.0
+                        },
+                        new
+                        {
+                            RoomId = 7,
+                            Floor = 2,
+                            PricePerNight = 1000m,
+                            RoomNumber = 202,
+                            RoomTypeId = 1,
+                            SizeM2 = 100.0
+                        },
+                        new
+                        {
+                            RoomId = 8,
+                            Floor = 2,
+                            PricePerNight = 1000m,
+                            RoomNumber = 203,
+                            RoomTypeId = 1,
+                            SizeM2 = 100.0
+                        },
+                        new
+                        {
+                            RoomId = 9,
+                            Floor = 2,
+                            PricePerNight = 1000m,
+                            RoomNumber = 204,
+                            RoomTypeId = 1,
+                            SizeM2 = 100.0
+                        },
+                        new
+                        {
+                            RoomId = 10,
+                            Floor = 2,
+                            PricePerNight = 1000m,
+                            RoomNumber = 205,
+                            RoomTypeId = 1,
+                            SizeM2 = 100.0
+                        },
+                        new
+                        {
+                            RoomId = 11,
+                            Floor = 3,
+                            PricePerNight = 1200m,
+                            RoomNumber = 301,
+                            RoomTypeId = 1,
+                            SizeM2 = 120.0
+                        },
+                        new
+                        {
+                            RoomId = 12,
+                            Floor = 3,
+                            PricePerNight = 1200m,
+                            RoomNumber = 302,
+                            RoomTypeId = 1,
+                            SizeM2 = 120.0
+                        },
+                        new
+                        {
+                            RoomId = 13,
+                            Floor = 3,
+                            PricePerNight = 1200m,
+                            RoomNumber = 303,
+                            RoomTypeId = 1,
+                            SizeM2 = 120.0
+                        },
+                        new
+                        {
+                            RoomId = 14,
+                            Floor = 3,
+                            PricePerNight = 2800m,
+                            RoomNumber = 304,
+                            RoomTypeId = 2,
+                            SizeM2 = 180.0
+                        },
+                        new
+                        {
+                            RoomId = 15,
+                            Floor = 3,
+                            PricePerNight = 3500m,
+                            RoomNumber = 305,
+                            RoomTypeId = 3,
+                            SizeM2 = 220.0
+                        });
                 });
 
             modelBuilder.Entity("HotelGrandioso.Models.RoomType", b =>
@@ -111,6 +248,26 @@ namespace HotelGrandioso.Migrations
                     b.HasKey("RoomTypeId");
 
                     b.ToTable("RoomTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            RoomTypeId = 1,
+                            Description = "Standardrum",
+                            Name = "Standard"
+                        },
+                        new
+                        {
+                            RoomTypeId = 2,
+                            Description = "Lyxig svit på toppvåningen",
+                            Name = "Lyxsvit"
+                        },
+                        new
+                        {
+                            RoomTypeId = 3,
+                            Description = "Exklusiv bröllopssvit på toppvåningen",
+                            Name = "Bröllopsvit"
+                        });
                 });
 
             modelBuilder.Entity("HotelGrandioso.Models.Booking", b =>
