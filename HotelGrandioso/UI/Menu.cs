@@ -44,7 +44,7 @@ public class Menu
                     break;
 
                 case "4":
-                    ShowAllRooms();
+                    ShowAvailableRooms();
                     break;
 
                 case "5":
@@ -100,6 +100,63 @@ public class Menu
                 $"Rum: {room.RoomNumber} | " +
                 $"Våning: {room.Floor} | " +
                 $"Rumstyp: {room.RoomType.Name} | " +
+                $"Pris per natt: {room.PricePerNight:N0} kr");
+        }
+    }
+
+    private void ShowAvailableRooms()
+    {
+        Console.WriteLine("\n=== VISA LEDIGA RUM ===");
+
+        Console.Write("Ange incheckningsdatum (yyyy-MM-dd): ");
+        string? checkInInput = Console.ReadLine();
+
+        if (!DateTime.TryParseExact(checkInInput,"yyyy-MM-dd",null,
+            System.Globalization.DateTimeStyles.None,out DateTime checkIn))
+        {
+            Console.WriteLine("Ogiltigt datum.");
+            return;
+        }
+
+        Console.Write("Ange utcheckningsdatum (yyyy-MM-dd): ");
+        string? checkOutInput = Console.ReadLine();
+
+        if (!DateTime.TryParseExact(checkOutInput,"yyyy-MM-dd",null,
+            System.Globalization.DateTimeStyles.None,out DateTime checkOut))
+        {
+            Console.WriteLine("Ogiltigt datum.");
+            return;
+        }
+
+        if (checkIn.Date < DateTime.Today)
+        {
+            Console.WriteLine("Incheckningsdatum kan inte vara i dåtid.");
+            return;
+        }
+
+        if (checkOut.Date <= checkIn.Date)
+        {
+            Console.WriteLine("Utcheckningsdatum måste vara efter incheckningsdatum.");
+            return;
+        }
+
+        var availableRooms = _repository.GetAvailableRooms(checkIn, checkOut);
+
+        Console.WriteLine("\n=== LEDIGA RUM ===");
+
+        if (availableRooms.Count == 0)
+        {
+            Console.WriteLine("Det finns inga lediga rum under dessa datum.");
+            return;
+        }
+
+        foreach (var room in availableRooms)
+        {
+            Console.WriteLine(
+                $"Rum: {room.RoomNumber} | " +
+                $"Våning: {room.Floor} | " +
+                $"Rumstyp: {room.RoomType.Name} | " +
+                $"Storlek: {room.SizeM2:N0} m² | " +
                 $"Pris per natt: {room.PricePerNight:N0} kr");
         }
     }
