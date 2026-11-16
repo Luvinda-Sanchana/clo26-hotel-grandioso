@@ -19,12 +19,12 @@ public class Menu
 
         while (running)
         {
-            Console.WriteLine("\n=== HOTEL GRANDIOSO ===");
             Console.WriteLine("1. Boka rum");
             Console.WriteLine("2. Avboka bokning");
             Console.WriteLine("3. Visa alla bokningar");
-            Console.WriteLine("4. Visa lediga rum");
-            Console.WriteLine("5. Avsluta");
+            Console.WriteLine("4. Visa alla rum");
+            Console.WriteLine("5. Visa lediga rum");
+            Console.WriteLine("6. Avsluta");
 
             Console.Write("\nVälj ett alternativ: ");
             string? choice = Console.ReadLine();
@@ -44,10 +44,14 @@ public class Menu
                     break;
 
                 case "4":
-                    ShowAvailableRooms();
+                    ShowAllRooms();
                     break;
 
                 case "5":
+                    ShowAvailableRooms();
+                    break;
+
+                case "6":
                     running = false;
                     Console.WriteLine("Tack för besöket!");
                     break;
@@ -127,7 +131,7 @@ public class Menu
             Console.WriteLine("Ogiltigt datum.");
             return;
         }
-
+        
         if (checkIn.Date < DateTime.Today)
         {
             Console.WriteLine("Incheckningsdatum kan inte vara i dåtid.");
