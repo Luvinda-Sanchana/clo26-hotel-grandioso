@@ -1,11 +1,12 @@
 # Hotel Grandioso — Inlämning 1
 
-**Namn:Luvinda Sanchana Weerasinghe
+**Namn:** Luvinda Sanchana Weerasinghe
 
 ## Databas
 
 - Databas: SQLite
 - Migrationer: Entity Framework Core 10. Databasen skapas och uppdateras med Entity Framework Core migrations
+
 
 ## UML-klassdiagram
 
@@ -41,35 +42,14 @@ classDiagram
         +int NumberOfGuests
     }
 
-    class HotelContext {
-        +DbSet~Room~ Rooms
-        +DbSet~RoomType~ RoomTypes
-        +DbSet~Guest~ Guests
-        +DbSet~Booking~ Bookings
-    }
+    class HotelContext
+    class IHotelRepository
+    class HotelRepository
+    class Menu
 
-    class IHotelRepository {
-        +GetAllRooms()
-        +GetAllBookings()
-        +GetAvailableRooms()
-        +GetBookingById()
-        +AddGuest()
-        +AddBooking()
-        +DeleteBooking()
-    }
-
-    class HotelRepository {
-        -HotelContext _context
-    }
-
-    class Menu {
-        -IHotelRepository _repository
-        +Show()
-    }
-
-    RoomType "1" --> "many" Room
-    Room "1" --> "many" Booking
-    Guest "1" --> "many" Booking
+    RoomType "1" --> "*" Room
+    Room "1" --> "*" Booking
+    Guest "1" --> "*" Booking
 
     HotelRepository ..|> IHotelRepository
     HotelRepository --> HotelContext
@@ -78,8 +58,10 @@ classDiagram
     HotelContext --> RoomType
     HotelContext --> Guest
     HotelContext --> Booking
+```
 
 ## GDPR
+
 
 Utvärdera fälten i `Guest` ett i taget. Vad bygger du in, och varför?
 
