@@ -4,27 +4,15 @@
 
 ## Så kör du projektet
 
-1. Öppna projektmappen `HotelGrandioso`.
-2. Öppna terminalen i projektmappen.
-3. Installera projektets dependencies:
+1. Gå till projektets GitHub-repository: https://github.com/Luvinda-Sanchana/clo26-hotel-grandioso
+2. Klicka på den gröna knappen Code, Välj Download ZIP.
+3. När ZIP-filen har laddats ner, högerklicka på filen och välj Extract All för att packa upp projektet.
+4. Öppna den uppackade projektmappen, Öppna filen HotelGrandioso.sln i Visual Studio.
+5. Vänta tills Visual Studio har laddat projektet och återställt NuGet-paketen.
+6. I Solution Explorer, högerklicka på projektet HotelGrandioso och välj Set as Startup Project om det inte redan är valt.
+7. Klicka på den gröna Start-knappen eller tryck på F5 för att köra applikationen.
 
-```powershell
-dotnet restore
-```
-
-4. Skapa eller uppdatera databasen:
-
-```powershell
-dotnet ef database update
-```
-
-5. Starta applikationen:
-
-```powershell
-dotnet run
-```
-
-**Obs:** En lokal `appsettings.json` med rätt SQLite connection string behövs för att köra projektet.
+Obs: Projektet använder SQLite. Den lokala databasen och appsettings.json ingår inte i ZIP-filen eftersom de är undantagna i .gitignore. En giltig lokal databasanslutning och databasen måste därför konfigureras innan applikationen kan köras.
 
 ## Databas
 
