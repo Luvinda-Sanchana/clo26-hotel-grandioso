@@ -4,21 +4,21 @@
 
 ## Så kör du projektet
 
-1. Gå till projektets GitHub-repository: https://github.com/Luvinda-Sanchana/clo26-hotel-grandioso
-2. Klicka på den gröna knappen Code, Välj Download ZIP.
-3. När ZIP-filen har laddats ner, högerklicka på filen och välj Extract All för att packa upp projektet.
-4. Öppna den uppackade projektmappen, Öppna filen HotelGrandioso.sln i Visual Studio.
-5. Vänta tills Visual Studio har laddat projektet och återställt NuGet-paketen.
-6. I Solution Explorer, högerklicka på projektet HotelGrandioso och välj Set as Startup Project om det inte redan är valt.
-7. Klicka på den gröna Start-knappen eller tryck på F5 för att köra applikationen.
+1. Gå till projektets GitHub-repository: [Hotel Grandioso](https://github.com/Luvinda-Sanchana/clo26-hotel-grandioso).
+2. Klicka på den gröna knappen **Code** och välj **Download ZIP**.
+3. När ZIP-filen har laddats ner, högerklicka på filen och välj **Extract All**.
+4. Öppna den uppackade projektmappen.
+5. Öppna filen `HotelGrandioso.sln` i Visual Studio.
+6. Vänta tills Visual Studio har laddat projektet och återställt NuGet-paketen.
+7. I Solution Explorer, högerklicka på projektet **HotelGrandioso** och välj **Set as Startup Project** om det inte redan är valt.
+8. Klicka på den gröna **Start**-knappen eller tryck på **F5** för att köra applikationen.
 
-Obs: Projektet använder SQLite. Den lokala databasen och appsettings.json ingår inte i ZIP-filen eftersom de är undantagna i .gitignore. En giltig lokal databasanslutning och databasen måste därför konfigureras innan applikationen kan köras.
+**Obs:** Projektet använder SQLite. Filen `appsettings.json` ingår i projektet, men den lokala SQLite-databasen ingår inte. Databasen behöver skapas med projektets Entity Framework Core-migrationer innan applikationen körs.
 
 ## Databas
 
 - Databas: SQLite
-- Migrationer: Entity Framework Core 10. Databasen skapas och uppdateras med Entity Framework Core migrations
-
+- Migrationer: Entity Framework Core 10. Databasen skapas och uppdateras med Entity Framework Core migrations.
 
 ## UML-klassdiagram
 
@@ -54,14 +54,35 @@ classDiagram
         +int NumberOfGuests
     }
 
-    class HotelContext
-    class IHotelRepository
-    class HotelRepository
-    class Menu
+    class HotelContext {
+        +DbSet~Room~ Rooms
+        +DbSet~RoomType~ RoomTypes
+        +DbSet~Guest~ Guests
+        +DbSet~Booking~ Bookings
+    }
 
-    RoomType "1" --> "*" Room
-    Room "1" --> "*" Booking
-    Guest "1" --> "*" Booking
+    class IHotelRepository {
+        +GetAllRooms()
+        +GetAllBookings()
+        +GetAvailableRooms()
+        +GetBookingById()
+        +AddGuest()
+        +AddBooking()
+        +DeleteBooking()
+    }
+
+    class HotelRepository {
+        -HotelContext _context
+    }
+
+    class Menu {
+        -IHotelRepository _repository
+        +Show()
+    }
+
+    RoomType "1" --> "many" Room
+    Room "1" --> "many" Booking
+    Guest "1" --> "many" Booking
 
     HotelRepository ..|> IHotelRepository
     HotelRepository --> HotelContext
@@ -82,29 +103,23 @@ Jag har inkluderat tre fält i klassen Guest:
 - Name: Krävs för att identifiera gästen och koppla denne till sin bokning.
 - TelephoneNumber: Krävs för att hotellet ska kunna kontakta gästen.
 
-Jag har endast samlat in den information som behövs för att hantera bokningarna, och undvikit att ta in onödiga uppgifter såsom hårfärg, religion, etc.
-
->
+Jag har endast samlat in den information som behövs för att hantera bokningarna och undvikit att ta in onödiga uppgifter.
 
 ## Designmönster
 
-Beskriv det designmönster du använt (till exempel Repository), vad det gör och varför du valde det.
-
 Jag har använt mönstret Repository i det här projektet.
 
-Detta beror på att mönstret separerar databas operationer från resten av applikationen.
+Detta beror på att mönstret separerar databasoperationer från resten av applikationen.
 
-Jag har använt an interface som heter IHotelRepository samt a class vid namn HotelRepository. Repository komponenten hanterar uppgifter som att lägga till bokningar, ta bort bokningar och söka efter tillgängliga rum.
+Jag har använt ett interface som heter `IHotelRepository` samt en klass vid namn `HotelRepository`. Repository-komponenten hanterar uppgifter som att lägga till bokningar, ta bort bokningar och söka efter tillgängliga rum.
 
-Jag valde detta mönster eftersom det gör koden enklare att organisera och förstå, underlättar sökandet efter klasser och gör det lättare att genomföra nödvändiga justeringar.
-
->
+Jag valde detta mönster eftersom det gör koden enklare att organisera och förstå, samt gör det lättare att genomföra nödvändiga ändringar.
 
 ## Tekniker
 
 - C# / .NET 10
 - Entity Framework Core 10
-- SQLite database
+- SQLite
 - Code First migrations
 - LINQ for database queries
 - OOP

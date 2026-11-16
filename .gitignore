@@ -12,9 +12,6 @@ obj/
 .DS_Store
 Thumbs.db
 
-# Local database configuration
-HotelGrandioso/appsettings.json
-
 # SQLite databases and temporary files
 *.db
 *.db-shm
