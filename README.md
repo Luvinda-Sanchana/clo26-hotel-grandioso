@@ -1,23 +1,11 @@
 # Hotel Grandioso — Inlämning 1
 
-**Namn:** [ditt namn]
-
-## Så kör du projektet
-
-1. Forka repot på GitHub och klona din fork
-2. Öppna `HotelGrandioso.slnx` i Visual Studio (eller öppna mappen i VS Code)
-3. Tryck **F5** för att starta
-
-Via terminalen:
-
-```bash
-dotnet run --project HotelGrandioso
-```
+**Namn:Luvinda Sanchana Weerasinghe
 
 ## Databas
 
-- Databas: [SQLite eller LocalDB]
-- Migrationer: [hur du skapar och kör dem]
+- Databas: SQLite
+- Migrationer: Entity Framework Core 10. Databasen skapas och uppdateras med Entity Framework Core migrations
 
 ## UML-klassdiagram
 
