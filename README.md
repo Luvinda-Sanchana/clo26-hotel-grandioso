@@ -2,6 +2,30 @@
 
 **Namn:** Luvinda Sanchana Weerasinghe
 
+## Så kör du projektet
+
+1. Öppna projektmappen `HotelGrandioso`.
+2. Öppna terminalen i projektmappen.
+3. Installera projektets dependencies:
+
+```powershell
+dotnet restore
+```
+
+4. Skapa eller uppdatera databasen:
+
+```powershell
+dotnet ef database update
+```
+
+5. Starta applikationen:
+
+```powershell
+dotnet run
+```
+
+**Obs:** En lokal `appsettings.json` med rätt SQLite connection string behövs för att köra projektet.
+
 ## Databas
 
 - Databas: SQLite
