@@ -11,8 +11,73 @@
 
 ```mermaid
 classDiagram
-    %% Ersätt med ditt eget klassdiagram
-```
+    class Room {
+        +int RoomId
+        +int RoomNumber
+        +int Floor
+        +double SizeM2
+        +decimal PricePerNight
+        +int RoomTypeId
+    }
+
+    class RoomType {
+        +int RoomTypeId
+        +string Name
+        +string Description
+    }
+
+    class Guest {
+        +int GuestId
+        +string Name
+        +string TelephoneNumber
+    }
+
+    class Booking {
+        +int BookingId
+        +int GuestId
+        +int RoomId
+        +DateTime CheckIn
+        +DateTime CheckOut
+        +int NumberOfGuests
+    }
+
+    class HotelContext {
+        +DbSet~Room~ Rooms
+        +DbSet~RoomType~ RoomTypes
+        +DbSet~Guest~ Guests
+        +DbSet~Booking~ Bookings
+    }
+
+    class IHotelRepository {
+        +GetAllRooms()
+        +GetAllBookings()
+        +GetAvailableRooms()
+        +GetBookingById()
+        +AddGuest()
+        +AddBooking()
+        +DeleteBooking()
+    }
+
+    class HotelRepository {
+        -HotelContext _context
+    }
+
+    class Menu {
+        -IHotelRepository _repository
+        +Show()
+    }
+
+    RoomType "1" --> "many" Room
+    Room "1" --> "many" Booking
+    Guest "1" --> "many" Booking
+
+    HotelRepository ..|> IHotelRepository
+    HotelRepository --> HotelContext
+    Menu --> IHotelRepository
+    HotelContext --> Room
+    HotelContext --> RoomType
+    HotelContext --> Guest
+    HotelContext --> Booking
 
 ## GDPR
 
