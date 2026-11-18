@@ -13,11 +13,11 @@
 7. I Solution Explorer, högerklicka på projektet **HotelGrandioso** och välj **Set as Startup Project** om det inte redan är valt.
 8. Klicka på den gröna **Start**-knappen eller tryck på **F5** för att köra applikationen.
 
-**Obs:** Projektet använder SQLite. Filen `appsettings.json` ingår i projektet, men den lokala SQLite-databasen ingår inte. Databasen behöver skapas med projektets Entity Framework Core-migrationer innan applikationen körs.
+**Obs:** Projektet använder SQLite och Entity Framework Core. Databasfilen ingår inte i GitHub-repositoryt. Den skapas automatiskt när applikationen startas för första gången, med hjälp av projektets Entity Framework Core-migrationer.
 
 ## Databas
 
-- Databas: SQLite
+- Databas: SQLite (Skapa och starta automatiskt)
 - Migrationer: Entity Framework Core 10. Databasen skapas och uppdateras med Entity Framework Core migrations.
 
 ## UML-klassdiagram
