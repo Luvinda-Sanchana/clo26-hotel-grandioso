@@ -29,6 +29,9 @@ var options = new DbContextOptionsBuilder<HotelContext>()
 // Create database context
 using var context = new HotelContext(options);
 
+// Apply database migrations
+context.Database.Migrate();
+
 // Create repository
 IHotelRepository repository = new HotelRepository(context);
 
